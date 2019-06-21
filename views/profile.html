@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link  rel="stylesheet" type="text/css" href="/templates/css/style.css">
+    <title>Profile</title>
+</head>
+<body>
+<header>
+    <div class="container">STUDENTS LIST</div>
+</header>
+<section>
+    <div class="list_head">
+        <a class="button1 right" href="/main">Main Page</a>
+        <div class="get_data">
+            <?php if(isset($action)):
+            echo $action;
+            endif;?>
+        </div>
+    </div>
+    <div class="list_body">
+        <div class="status_operation">
+            <?php if(isset($status)):
+            echo $status;
+            endif;?>
+        </div>
+        <form method="post" class="registration_block" action="/profile">
+
+            <p class="registration">Name</p>
+            <input type="text" class="registration_box" name="data[name]" maxlength="20" pattern="<?php echo Validator::NAME_PATTERN;?>"
+            placeholder="Введите имя" value="<?php if (isset($currentData['name'])) echo $currentData['name'];?>" autofocus required>
+            <p class="error_message"><?php if(isset($errors['name'])) echo $errors['name']?></p>
+
+            <p class="registration">Second Name</p>
+            <input type="text" class="registration_box" name="data[second_name]" maxlength="20" pattern="<?php echo Validator::SECOND_NAME_PATTERN;?>"
+             placeholder="Введите фамилию" value="<?php if (isset($currentData['second_name'])) echo $currentData['second_name'];?>" required>
+            <p class="error_message"><?php if(isset($errors['second_name'])) echo $errors['second_name']?></p>
+
+            <p class="registration">E-mail</p>
+            <input type="email" class="registration_box" name="data[mail]" pattern="<?php echo Validator::MAIL_PATTERN;?>"
+            placeholder="E-mail" value="<?php if (isset($currentData['mail'])) echo $currentData['mail'];?>" required>
+            <p class="error_message"><?php if(isset($errors['mail'])) echo $errors['mail']?></p>
+
+            <p class="registration">Points</p>
+            <input type="number" class="registration_box" name="data[points]" pattern="<?php echo Validator::POINTS_PATTERN;?>"
+            max="200" min="1" placeholder="1 - 200" value="<?php if (isset($currentData['points'])) echo $currentData['points'];?>" required>
+            <p class="error_message"><?php if(isset($errors['points'])) echo $errors['points']?></p>
+
+            <p class="registration">Group name</p>
+            <input type="text" class="registration_box" name="data[group_name]" maxlength="5" pattern="<?php echo Validator::GROUP_NAME_PATTERN;?>"
+            placeholder="От 2 до 5 символов" value="<?php if (isset($currentData['group_name'])) echo $currentData['group_name'];?>" required>
+            <p class="error_message"><?php if(isset($errors['group_name'])) echo $errors['group_name']?></p>
+
+            <p class="registration">Birth</p>
+            <input type="date" class="registration_box" name="data[birth]" value="<?php if (isset($currentData['birth'])) echo $currentData['birth'];?>">
+            <p class="error_message"><?php if(isset($errors['birth'])) echo $errors['birth']?></p>
+
+            <p class="registration">Gender</p>
+            <input type="radio" class="registration_radio" name="data[gender]" id="Male" value="<?php echo Validator::GENDER_MALE?>" required
+            <?php if ((isset($currentData['gender'])) && ($currentData['gender'] == Validator::GENDER_MALE)):?>
+                checked
+            <?php endif; ?>>
+            <label for="Male">Male</label>
+            <input type="radio" class="registration_radio" name="data[gender]" id="Female" value="<?php echo Validator::GENDER_FEMALE?>" required
+            <?php if ((isset($currentData['gender'])) && ($currentData['gender'] == Validator::GENDER_FEMALE)):?>
+                checked
+            <?php endif; ?>>
+            <label for="Female">Female</label>
+
+            <p class="registration">Location</p>
+            <input type="radio" class="registration_radio" name="data[location]" id="local" value="<?php echo Validator::LOCAL_TYPE?>" required
+            <?php if ((isset($currentData['location'])) && ($currentData['location'] == Validator::LOCAL_TYPE)):?>
+                checked
+            <?php endif; ?>>
+            <label for="local">Local</label>
+            <input type="radio" class="registration_radio" name="data[location]" id="not_local" value="<?php echo Validator::NOT_LOCAL_TYPE?>" required
+            <?php if ((isset($currentData['location'])) && ($currentData['location'] == Validator::NOT_LOCAL_TYPE)):?>
+                checked
+            <?php endif; ?>>
+            <label for="not_local">Not local</label>
+
+            <br>
+            <input type="submit" class="submite_button registration_send" value="Send" name="send">
+        </form>
+    </div>
+</section>
+</body>
+</html>

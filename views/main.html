@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<link  rel="stylesheet" type="text/css" href="/templates/css/style.css">
+		<link  rel="stylesheet" type="text/css" href="/templates/css/table.css">
+		<title>Список абитуриентов</title>
+	</head>
+	<body>
+		<header>
+			<div class="container">STUDENTS LIST</div>
+		</header>
+		<section>
+			<div class="list_head">
+				<?php if(isset($_GET['search'])):?>
+				<a href="/main" class="button1 showAll">Show all</a>
+				<?php endif;?>
+				<a href="/profile" class="button1 right">Profile</a>
+				<form class ="search" method ="get">
+					<input type="text" name="search" placeholder="Search..." maxlength="20">
+					<input type="submit" class="submite_button" value="Search">
+				</form>
+				<div class="search">
+					<?php if(isset($_GET['search'])):?>
+					Данные по запросу:
+					<?php echo $this->parameters['search']; endif;?>
+				</div>
+			</div>
+			<div class="list_pages">
+				<?php for($i=1; $i<=$this->countPages; $i++):?>
+				<a href="<?php Uri::setPageUri($query, $i);?>" class="button1 pages <?php if((!isset($_GET['page']) && $i == 1) || ($_GET['page'] == $i)) echo 'currentPage' ?>">
+					<?php echo $i;?>
+				</a>
+				<?php endfor;?>
+			</div>
+			<div class = "list_body">
+				<table class="table table-striped table-bordered table-sm">
+					<thead>
+					<tr>
+						<th><a class="order <?php if($order = Uri::getOrderCol($query, 'name')) echo $order;?>" href="<?php Uri::setOrderUri($query, 'name');?>">Name</a></th>
+						<th><a class="order <?php if($order = Uri::getOrderCol($query, 'second_name')) echo $order;?>" href="<?php Uri::setOrderUri($query, 'second_name');?>">SecondName</a></th>
+						<th><a class="order <?php if($order = Uri::getOrderCol($query, 'group_name')) echo $order;?>" href="<?php Uri::setOrderUri($query, 'group_name');?>">Group</a></th>
+						<th><a class="order <?php if($order = Uri::getOrderCol($query, 'points')) echo $order;?>" href="<?php Uri::setOrderUri($query, 'points');?>">Points</a></th>
+					</tr>
+					</thead>
+					<tbody>
+					<?php foreach ($list as $student):?>
+					<tr>
+						<td><?php echo $student['name'];?></td>
+						<td><?php echo $student['second_name'];?></td>
+						<td><?php echo $student['group_name'];?></td>
+						<td><?php echo $student['points'];?></td>
+					</tr>
+					<?php endforeach;?>
+					</tbody>
+				</table>
+			</div>
+			<div class="list_pages">
+				<?php for($i=1; $i<=$this->countPages; $i++):?>
+				<a href="<?php Uri::setPageUri($query, $i);?>" class="button1 pages <?php if((!isset($_GET['page']) && $i == 1) || ($_GET['page'] == $i)) echo 'currentPage' ?>">
+					<?php echo $i;?>
+				</a>
+				<?php endfor;?>
+			</div>
+		</section>
+	</body>
+</html>
